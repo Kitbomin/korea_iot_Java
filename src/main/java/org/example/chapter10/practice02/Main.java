@@ -14,28 +14,32 @@ import java.util.Scanner;
 /**
  * == Inventory Management System ==
  * : 다양한 상품을 관리하는 재고 관리 시스템
- *
+ * <p>
  * 1) 프로젝트 구조
  * - Main 파일: 프로그램 실행의 진입점
- *
+ *<p>
  * - entity 패키지 (데이터 모델 정의) -> 데이터베이스를 1대 1로 구현해놓음
+ * Electronics -> brand, warranty
+ * Furniture -> material, size
+ * Kitchen -> 도구, 사용기한(Date 써보기)
+ * <p>
  *: 데이터 (상품)를 표현하는 클래스 정의 - 객체의 속성과 동작을 정의
- *
+ *<p>
  * - service 패키지(비즈니스 로직 처리)
  * : 상품 추가, 조회, 수정, 삭제와 같은 비즈니스 로직을 처리(직접적인 데이터 조작)
- *
+ *<p>
  * - repository 패키지 (데이터 저장소 역할)
  * : 데이터를 저장, 검색하는 기능을 제공하는 클래스
- *
+ *<p>
  * 2) 요구사항
  * - 기능: 상품(Item) 추가, 수정, 삭제, 카테고리 상품 검색, 가격 또는 이름 등으로 정렬
- *
+ *<p>
  * - 사용 컬렉션 프레임워크
  *    Set: 상품관리(중복 상품 관리)
  *    Map: 카테고리별 상품 분류(Key: 카테고리명, Value: 상품 목록)
- *
+ *<p>
  * - 추상 클래스(Item: 모든 상품의 공통 필드 포함)
- * - 인터페이스 (Discountable: 할인 로직 제공)
+ * - 인터페이스 (Discountable: 할인 로직 제공) -> 이거 어디갔나요...?
  *
  **/
 
@@ -49,10 +53,10 @@ public class Main {
             System.out.println("");
             System.out.println(" === Inventory Management System === ");
             System.out.println("1. 제품 추가");
-            System.out.println("2. 제품 전체 조회");
-            System.out.println("3. 제품 수정(가격)");
-            System.out.println("4. 제품 삭제");
-            System.out.println("5. 제품 검색(카테고리");
+            System.out.println("2. 제품 수정(가격)");
+            System.out.println("3. 제품 삭제");
+            System.out.println("4. 제품 검색(카테고리");
+            System.out.println("5. 제품 전체 조회");
             System.out.println("0. 프로그램 종료");
             System.out.println("메뉴를 선택해주세용");
 
@@ -130,7 +134,14 @@ public class Main {
             Item furniture = new Furniture(id, name, price, quantity, material, size);
             service.addItem(furniture);
 
-        }else {
+        } else if (category.equalsIgnoreCase("Food")) {
+            System.out.println("Enter FoodName: ");
+            String  foodname = sc.nextLine();
+
+            System.out.println("Enter endDate: ");
+
+
+        } else {
             System.out.println("카테고리 못찾겠어용... 그래서 추가 못해잉");
         }
 
@@ -146,8 +157,15 @@ public class Main {
 
         sc.nextLine();
 
-        service.updateItemPrice(id, newPrice);
-        System.out.println("제품 가격이 성공적으로 수정 되었어용");
+        boolean result = service.updateItemPrice(id, newPrice);
+
+        if (result) {
+            System.out.println("제품 가격이 성공적으로 수정 되었어용");
+        }else {
+            System.out.println("해당하는 제품이 없어용 수정해줘요");
+        }
+
+//        service.updateItemPrice(id, newPrice);
     }
 
     private static void deleteItem(InventoryService service, Scanner sc) {
