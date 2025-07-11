@@ -5,6 +5,7 @@ package org.example.chapter10.practice01;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 public class LibraryManager implements Manageable {
 
@@ -74,16 +75,64 @@ public class LibraryManager implements Manageable {
 
     @Override
     public List<Item> search(String keyword) {
+        // 전체 리스트의 요소에서 키워드 검색을 시행: name, author, publisher, ... 통합검색 -> 모든 키워드로!
+
+        List<Item> foundItems = new ArrayList<>(); // 검색된 도서 정보들이 필터링된 애들이 저장될 리스트
+        for (Item item: items){
+            if (item.getName().contains(keyword)
+            || (item instanceof Book
+                    && ((Book)item).getAuthor().contains(keyword)
+                    ||((Book)item).getPublisher().contains(keyword))
+            ) {
+                foundItems.add(item);
+
+            }
+
+        }
+
+        if (foundItems.isEmpty()){
+            throw new NoSuchElementException("키워드로 못찾겟엉요: " + keyword);
+        }
+
         return List.of();
     }
 
     @Override
     public List<Item> searchByCategory(String category) {
-        return List.of();
+        List<Item> result = new ArrayList<>();
+
+        for (Item item: items) {
+            if (item instanceof Book
+                    && ((Book)item).getCategory().equalsIgnoreCase(category) // 대소문자를 구분하지 않고 데이터의 값을 비교할 수 있음 -> 영어만 사용 가능
+             ) {
+                result.add(item);
+            }
+        }
+
+        if (result.isEmpty()) {
+            throw new NoSuchElementException("카테고리 결과가 없어용ㅇ");
+        }
+
+        return result;
     }
 
     @Override
     public List<Item> searchByPriceRange(int minPrice, int maxPrice) {
-        return List.of();
+        List<Item> result = new ArrayList<>();
+        for (Item item: items) {
+            if (item instanceof Book) {
+                int price = ((Book)item).getPrice();
+
+                if (price >= minPrice && price <= maxPrice) {
+                    result.add(item);
+                }
+            }
+        }
+
+        if (result.isEmpty()) {
+            throw new NoSuchElementException("가격을 못찾게성ㅇ요");
+        }
+
+        return result;
     }
 }
