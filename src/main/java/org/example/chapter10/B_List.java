@@ -23,6 +23,8 @@ package org.example.chapter10;
 // 너가 알고있는거... 자료구조에서 진짜 지겹게 들은거...
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 public class B_List {
     public static void main(String[] args) {
@@ -51,5 +53,58 @@ public class B_List {
         String removedElement = arrayList.remove(1);
         System.out.println(removedElement);
         System.out.println(arrayList);
+
+        // 데이터 크기
+        System.out.println(arrayList.size());
+
+        // 데이터 삭제(리스트 비우기)
+        arrayList.clear();
+        System.out.println(arrayList.size());
+
+        System.out.println(" --- LinkedList --- ");
+        LinkedList<String> linkedList = new LinkedList<>();
+
+        //데이터 추가
+        linkedList.add("apple");
+        linkedList.add("orange");
+        linkedList.add("mango");
+        linkedList.add(1, "Banana");
+
+        System.out.println(linkedList);
+
+        //데이터 읽기 - 똑같음
+        // 데이터 수정 - 똑같음
+        // 데이터 삭제 - 똑같음
+
+        //데이터 크기
+        System.out.println(linkedList.size());
+
+        //데이터 포함 여부
+        // 불리언 값으로 출력됨
+        System.out.println(linkedList.contains("orange"));
+        System.out.println(linkedList.contains("strawberry"));
+
+        // == ArrayList VS LinkedList 성능비교 == //
+        ArrayList<Integer> arrayListTest = new ArrayList<>();
+
+        //클래스 구조의 객체 타입 데이터: 클래스 구조는 객체 타입의 데이터만 삽입가능(Integer, Character, Boolean, Double...)
+
+        long startTime = System.nanoTime();
+        //1초 = 1,000,000,000 나노초
+        for (int i = 0; i < 222222; i ++) {
+            arrayListTest.add(0, i);
+        }
+
+        long endTime = System.nanoTime();
+
+        System.out.println("ArrayList 삽입 시간: " + (endTime - startTime) + "ns");
+
+        LinkedList<Integer> linkedListTest = new LinkedList<>();
+        startTime = System.nanoTime();
+        for (int i = 0; i < 222222; i ++) {
+            linkedListTest.add(0,i);
+        }
+        endTime = System.nanoTime();
+        System.out.println("LinkedList 삽입 시간: " + (endTime - startTime) + "ns");
     }
 }
