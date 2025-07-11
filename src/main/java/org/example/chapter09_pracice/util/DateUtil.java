@@ -37,21 +37,7 @@ public class DateUtil {
         return LocalDateTime.parse(datetimeStr, FORMATTER);
     }
 
-    /**
-     * 전달받은 LocalDateTime 객체를 포맷 문자열로 변환
-     * @param datetime 포맷할 LocalDateTime 객체
-     * @return 포맷된 날짜 문자열
-     * */
-    public static String format(LocalDateTime datetime) {
-        return datetime.format(FORMATTER);
-    }
 
-    /**
-     * 문자열 형태의 날짜를 LocalDateTime 객체로 파싱
-     * @param datetimeStr 포맷에 맞는 날짜 문자열
-     * @return LocalDateTime 객체
-     * */
-    public static LocalDateTime parse(String datetimeStr) {
-        return LocalDateTime.parse(datetimeStr, FORMATTER);
-    }
+
+
 }
