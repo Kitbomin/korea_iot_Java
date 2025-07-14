@@ -70,7 +70,6 @@ class LunchView {
         } else {
             System.out.println("오늘 급식 메뉴는: " + menu);
         }
-
     }
 }
 
