@@ -108,12 +108,31 @@ class Attendance {
 }
 
 
+// 의존성 주입(DI, Dependency Injection)
+// : 객체가 필요한 의존 객체를 직접 생성하지 않고, 외부에서 주입 받는 것을 의미
+// - 결합도가 낮아짐
+// - 테스트가 용이해짐
+// - 코드 재사용성이 증가함
+
+
+
+// 제어의 역전(IoC, Inversion if Control)
+// : 객체의 생성과 관리를 개발자가 아닌 "외부 컨테이너(Spring ...)" 가 담당하게 하는 구조
+// - 개발자가 객체를 생성하는 것이 아닌 프레임워크가 대신 처리해주는 것
+// >> IoC 컨테이너가 해당 역할을 담당 (현재 예제 없음)
+// >> ClassRoom이 직접 객체를 생성하지 않고, 외부에서 주입받는 방식(IoC)
+
+
 
 public class D_Coupling_Cohesion {
     public static void main(String[] args) {
         Teacher koreanTeacher = new KoreanTeacher();
         Teacher mathTeacher = new MathTeacher();
 
+
+        //해당 ClassRoom이 교사 객체를 직접 생성하지 않고, 외부에서 주입됨
+        // >> ClassRoom이 어떤 선생님 객체가 들어오든 ClassRoom 안에서 무언갈 수정하거나 할 필요는 없다.
+        // 의존성 주입
         ClassRoom koreanClass = new ClassRoom(koreanTeacher);
         ClassRoom mathClass = new ClassRoom(mathTeacher);
 
