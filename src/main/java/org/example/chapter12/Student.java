@@ -12,6 +12,7 @@ public class Student {
     private String studentNumber;
     private LocalDateTime createdAt; // date값은 요청안함
 
+    //생성자
     public Student(int studentId, String name, int age, String studentNumber){
         this.studentId = studentId;
         this.name = name;
@@ -22,7 +23,6 @@ public class Student {
 
 
     //getter
-
     public int getStudentId() {return studentId;}
     public String getName() {return name;}
     public int getAge() {return age;}
@@ -30,7 +30,6 @@ public class Student {
     public LocalDateTime getCreatedAt() {return createdAt;}
 
     //setter(앵간하면 수정을 위한 값들을 설정)
-
     public void setName(String name) {this.name = name;}
     public void setAge(int age){this.age = age;}
 
@@ -39,6 +38,7 @@ public class Student {
     public String toString() {
         return "Student { " +
                 "ID = " + studentId +
+                "NAME = " + name +
                 "AGE = " + age +
                 "Number = " + studentNumber +
                 "CreatedAT = " + createdAt + " }" ;
