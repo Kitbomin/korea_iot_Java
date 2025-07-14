@@ -1,8 +1,11 @@
 package org.example.chapter12;
 
 import org.example.chapter12.controller.BookController;
+import org.example.chapter12.model.Book;
 import org.example.chapter12.view.BookView;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -29,7 +32,13 @@ import java.util.Scanner;
 
 public class LibraryManagement {
     public static void main(String[] args) {
-        BookController controller = new BookController();
+        // 테스트용 더미 도서 리스트 생성
+
+        //더미 데이터 -> 실제 데이터처럼 보이지만, 테스트나 개발 목적으로 임시로 만든 가짜 데이터
+        List<Book> dummyBooks = new ArrayList<>();
+        dummyBooks.add(new Book("자바자바자바", "자바바바", "바바바바"));
+
+        BookController controller = new BookController(dummyBooks);
         Scanner sc = new Scanner(System.in);
 
 
