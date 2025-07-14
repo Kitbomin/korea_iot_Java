@@ -107,7 +107,7 @@ public class Main {
         System.out.println("Enter Item Quantity: ");
         int quantity = sc.nextInt();
         sc.nextLine();
-        System.out.println("Enter Item Category (Electronics/Furniture");
+        System.out.println("Enter Item Category (Electronics/Furniture/Food)");
         String category = sc.nextLine();
 
         if (category.equalsIgnoreCase("Electronics")) {
@@ -127,7 +127,7 @@ public class Main {
             String material = sc.nextLine();
 
             System.out.println("Enter size: ");
-            String  size = sc.nextLine();
+            String size = sc.nextLine();
 
             sc.nextLine();
 
@@ -136,7 +136,7 @@ public class Main {
 
         } else if (category.equalsIgnoreCase("Food")) {
             System.out.println("Enter FoodName: ");
-            String  foodname = sc.nextLine();
+            String foodName = sc.nextLine();
 
             System.out.println("Enter endDate: ");
 
