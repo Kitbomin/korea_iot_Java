@@ -33,7 +33,7 @@ public class BookView {
                     break;
 
                 case 2:
-                    showAllBoosView();
+                    showAllBooksView();
                     break;
 
                 case 3:
@@ -63,11 +63,26 @@ public class BookView {
 
     }
 
-    private void showAllBoosView() {
+    private void showAllBooksView() {
+        List<Book> allBooks = controller.getAllBooks();
 
+        for (Book book: allBooks) {
+            System.out.println(book);
+        }
     }
 
     private void searchBookView() {
 
+        //요청
+        System.out.println("책 검색해주세요");
+        String title = sc.nextLine();
+
+        //controller
+        List<Book> foundBooks = controller.searchBook(title);
+
+        // view 응답 처리
+        for (Book book: foundBooks) {
+            System.out.println(book);
+        }
     }
 }

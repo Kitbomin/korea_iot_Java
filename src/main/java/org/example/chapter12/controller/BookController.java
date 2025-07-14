@@ -19,6 +19,7 @@ public class BookController {
     //1. 책 추가(요청값: 책 데이터, 응답: 없음)
     public void addBook(String title, String author, String publisher) {
         Book newBook = new Book(title, author, publisher);
+        books.add(newBook);
     }
 
     //2. 전체 책 조회(요청값: 없음, 응답: 책 데이터 리스트 반환)
