@@ -15,7 +15,7 @@ repositories {
     mavenCentral()
 }
 
-//프로젝트에서 사용할 의존성(라이브러리) 명시 블록
+// 프로젝트에서 사용할 의존성(라이브러리) 명시 블록
 // +) 의존성 업데이트 시 반드시 Gradle 리로드(refresh)필수
 dependencies {
     // https://mvnrepository.com/artifact/org.projectlombok/lombok

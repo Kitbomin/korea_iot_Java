@@ -87,10 +87,11 @@ import lombok.*;
 
 class LombokClass{
     private final String title;
+
     @NonNull
+    private String author;
     // null값이 들어갈 수 없음 -> 필드에 필수값 지정
     // +) 값의 변화는 가능하다 => final의 불변성과의 차이점이 있다.
-    private String author;
 
     // @Getter/Setter 메서드는 각 필드의 getter/setter을 모두 생성해줌
     //public String getTitle() {return title;} //필드 'title'은(는) Lombok @Getter를 가질 수 있습니다
@@ -98,12 +99,30 @@ class LombokClass{
 
     private String publisher;
 
-//    LombokClass(String title, String author); => final , @NonNull 어노테이션이 붙은 필드를 인자로 가지는 생성자를 이미 위에서 어노테이션으로 불렀는데, 여기서 재정의 하니까 오류 발생
-//    LombokClass(String title, String author, String publisher); => 모든 필드 값을 인자로 가지는 생성자를 이미 위에서 어노테이션으로 불렀는데, 여기서 재정의 하니까 오류 발생
+//    LombokClass(String title, String author);
+//    => final , @NonNull 어노테이션이 붙은 필드를 인자로 가지는 생성자를 이미 위에서 어노테이션으로 불렀는데, 여기서 재정의 하니까 오류 발생
+
+//    LombokClass(String title, String author, String publisher);
+//    => 모든 필드 값을 인자로 가지는 생성자를 이미 위에서 어노테이션으로 불렀는데, 여기서 재정의 하니까 오류 발생
 }
 
 public class G_Lombok {
     public static void main(String[] args) {
+        LombokClass lombokClass1 = new LombokClass("자바는 재미졍", "롸롸롸", "코리아");
+        LombokClass lombokClass2 = new LombokClass("자바를 잡아", "로로로");
 
+        LombokClass lombokClass3 = new LombokClass
+                .LombokClassBuilder()
+
+                // @Builder 에서 필수 체크값이 아님 => Lombok이 내부에서 빌더 전용 생성자를 생성 => 초기화를 우회함(예외)
+                .title("자바바바ㅏ")
+
+                // @Builder : @Nonnull 이 있는 필드에 대해 값을 할당하지 않으면 NullPointerException이 발생
+                .author("루루루") //메서드 체이닝
+                .build();
+
+        System.out.println(lombokClass1);
+        System.out.println(lombokClass2);
+        System.out.println(lombokClass3);
     }
 }
