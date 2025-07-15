@@ -10,7 +10,10 @@ public class StudentResponseDto {
     private String studentNumber;
     private LocalDateTime createdAt; // date값은 요청안함
 
-    public StudentResponseDto(String name, int age, String studentNumber, LocalDateTime createdAt){
+    public StudentResponseDto(String name,
+                              int age,
+                              String studentNumber,
+                              LocalDateTime createdAt){
         this.name = name;
         this.age = age;
         this.studentNumber = studentNumber;
