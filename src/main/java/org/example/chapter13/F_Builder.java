@@ -30,20 +30,25 @@ class GameCharacter {
             this.name = name;
             this.sort = sort;
 
+            System.out.println(name);
+
         }
 
         //선택 필드에 대한 할당 메서드 (필드명 그 자체의 메서드명을 가지게 됨)
         public Builder skill (String skill) {
             this.skill = skill;
+            System.out.println("보유 스킬: " + skill);
             return this;
         }
 
         public Builder item (String item) {
             this.item = item;
+            System.out.println("아이템은 " + item);
             return this;
         }
 
         public GameCharacter build() { //게임캐릭터를 반환
+
             return new GameCharacter(this);
         }
     }
