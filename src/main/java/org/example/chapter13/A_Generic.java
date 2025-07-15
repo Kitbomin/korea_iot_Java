@@ -1,6 +1,8 @@
 package org.example.chapter13;
 
 import javax.swing.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * === Generic(일반적인) ===
@@ -57,6 +59,8 @@ class Pair<K, V> {
     static <T> void print (T value) {
         System.out.println(value);
     }
+    // static 멤버에서는 클래스의 제네릭 타입 매개변수 사용이 불가능 -> 인스턴스 없이 사용 가능하니까!
+    // >>> static 메서드는 제네릭 타입을 직접 선언해야함(<T>: 메서드 선언 앞에 필수 명시)
     
     
 }
@@ -81,6 +85,37 @@ public class A_Generic {
         // -> 자바의 제네릭은 타입 명시를 생략해도 자동으로 타입을 추론함
         Pair.print("Hello"); //T의 String 추론
         Pair.print(200); // T 의 Integer 추론
-        
+
+
+        // === 제네릭 클래스 사용 === //
+        // 클래스명 <필수 명시 - 제네릭타입> 인스턴스명 = new 클래스명<선택적 명시 - 제네릭타입>();
+        // : 제네릭 타입의 구조에 값이 들어올 경우 해당 값으로 자동 유추됨 -> 매우매우 편리
+        Pair<Integer, String> pair1 = new Pair<>(100, "안녕");
+        Pair<Integer, String>pair2 = new Pair<Integer, String>(200, "Hello");
+
+        // +) 제네릭 타입의 경우 기본 타입 직접 사용 불가능
+        //      -> Wrapper 클래스 사용
+        //         >> int - Integer, double - Double, char - Character ...
+
+        System.out.println(pair1.getKey());
+        System.out.println(pair1.getValue());
+
+        Pair<String, Integer>pair3 = new Pair<>("Hi", 999);
+//        Pair<int, char> pair4 = new Pair<int, char>();
+        // -> 타입 인수는 기본타입일 수 없다.
+
+        //+) 제네릭 타입은 컴파일 이후 실제 타입 정보가 사라지고 Object로 변환됨
+        // -> 런타임 시에는 Object로 동작됨
+        // ->> 타입 소거(Type Erasure)
+
+        List<String> list = new ArrayList<>();
+        list.add("Hello");
+        //컴파일 시 리스트 내부요소가 String 타입인지 검사
+        // -> 런타임 시에는 List<String>이 List로 취급되고, 타입 정보는 사라짐
+
+        // 타입 소거의 제약 사항
+        // list instanceof List<String> => 사용 불가 -> String이 없어지니까
+        // - 배열을 제네릭으로 만들 수는 없음 (new T [] => 불가능)
+
     }
 }
