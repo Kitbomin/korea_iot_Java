@@ -48,7 +48,6 @@ class GameCharacter {
         }
 
         public GameCharacter build() { //게임캐릭터를 반환
-
             return new GameCharacter(this);
         }
     }
