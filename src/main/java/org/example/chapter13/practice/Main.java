@@ -36,8 +36,11 @@ package org.example.chapter13.practice;
  * */
 
 
+import org.example.chapter13.practice.controller.BookController;
+
 public class Main {
     public static void main(String[] args) {
-
+        BookController controller = new BookController();
+        controller.start();
     }
 }
