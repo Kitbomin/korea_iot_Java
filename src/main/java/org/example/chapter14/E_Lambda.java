@@ -17,6 +17,7 @@ package org.example.chapter14;
  * }
  *      - negate: 부정하다(현재의 결과를 역전 -> Not...?)
  *
+ *
  * 2. Function<T,R>(변환하다)
  *  : 입력값을 받아 특정 연산을 수행한 후 결과 (R)을 반환
  *  : 메서드
@@ -40,11 +41,25 @@ package org.example.chapter14;
  * interface Consumer<T> {
  *      void accept(T t);
  * }
+ *
+ *
+ * 4. Supplier<T> (공급하다)
+ *  : 값을 공급(생성) 하는 데 사용, 입력값이 필요 하지 않음
+ *  : 입력값이 없는데 어떻게? -> 외부에서 값을 가져오거나, 데이터를 생성해 반환하는 역할을 담당
+ *  : 메서드
+ *      - T get(): 반환
+ *  : 형식
+ * @FunctionalInterface
+ * interface Supplier<Y> {
+ *      T get();
+ * }
  */
 
+import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 
 public class E_Lambda {
     public static void main(String[] args) {
@@ -92,6 +107,15 @@ public class E_Lambda {
 
         Consumer<String> combinedConsumer = printMessage.andThen(printLength);
         combinedConsumer.accept("123");
+
+        // 4. Supplier<T>
+        System.out.println(" === 4. Supplier === ");
+        // Math.random(): 0.0 ~ 1.0 사이의 무작위 실수를 반환해줌
+        Supplier<Double> randomValue = () -> Math.random();
+//        Supplier<Double> random = () -> {return Math.random();};
+        // 위의 두 코드는 같은 코드임
+
+        System.out.println(randomValue.get());
 
     }
 }
