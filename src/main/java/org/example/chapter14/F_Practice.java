@@ -30,7 +30,7 @@ public class F_Practice {
         Predicate<Integer> isPass = score -> score >= 90; //score값이 90 이상이 -> isPass에 담기
 
         // [3] Function: 점수를 학점(등급)으로 변환하는 함수
-        Function<Integer, String> gradeFunction = score -> { //gradeFunction에 score 값을 넣어 String 으로 변환
+        Function<Integer, String> gradeFunction = score -> { //gradeFunction에 score(Integer) 값을 넣어 String 으로 변환
             if (score > 100 || score < 0) return "X";
             else if (score >= 90) return "A";
             else if (score >= 80) return "B";
@@ -67,11 +67,14 @@ public class F_Practice {
         };
 
         // [5] Supplier: 무작위 보너스 점수를 생성하는 공급자 함수 | 0~5점 중 하나를 반환
+
         // Random() 클래스의 .nextInt(N) => 0이상 N 미만의 점수를 반환(0~5)
         Supplier<Integer> bonusSupplier = () -> new Random().nextInt(6);
 
+
         // [6] 프로그램 실행 - 제목 출력
         printHeader.accept("학생 점수 처리 결과");
+
 
         // [7] Map의 entrySet()을 사용해 전체 학생 처리
         // - entrySet(): 키와 값의 쌍을 순회할 수 있도록 Set<Map.Entry> 형태를 반환
