@@ -91,29 +91,39 @@ public class H_Stream {
 
 
         // == 예제 == //
-        // 1) "정"으로 시작하는 사람의 이름에 "님" 을 붙여서 출력
 
+        // 1) "정"으로 시작하는 사람의 이름에 "님" 을 붙여서 출력
+        System.out.println(names + "\n");
         streamNames
                 .filter(name -> name.startsWith("정")) // 문자열.startWith("문자열") -> 해당 문자열로 시작여부를 boolean으로 반환해줌
                 .map(name -> name + "님")
 //              .forEach(name -> System.out.println(name));
                 .forEach(System.out::println); //위에 구문이 이렇게 바뀜 -> 왜냐면 sout.도 결국엔 메서드 참조니까
+        System.out.println();
+        
 
         // 2) 길이가 3글자인 사람만 출력
+        System.out.println(names + "\n");
         names.stream()
                 .filter(name -> name.length() == 3)
                 .forEach(System.out::println);
+        System.out.println();
+
 
         // 3) 중복 제거 후 오름차순 정렬 출력
+        System.out.println(names + "\n");
         names.stream()
                 .distinct()
                 .sorted()
                 .forEach(System.out::println);
+        System.out.println();
 
+        
         // 4) 총 인원 수 출력
+        System.out.println(names + "\n");
         long count = names.stream()
                 .count();
-        System.out.println("총 인원수: " +count); //중복이 포함되어있음
+        System.out.println("총 인원수: " +count); //중복이 포함되어있음 없애고 싶으면 distinct 사용
 
 
 
