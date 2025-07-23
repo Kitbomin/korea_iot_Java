@@ -2,6 +2,7 @@ package org.example.chapter15;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.ToString;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -76,8 +77,9 @@ class Post {
 }
 
 class PostRepository {
-    List<Post> cashedPopularPosts() {
+    List<Post> findTop5MyOrderByViewsDesc() {
         //DB SQL을 통해 정렬된 데이터를 반환해 가져온 상태라 가정
+        //Post 데이터들에서 조회수 순으로 내림차순 정렬, 상위 5개의 데이터를 반환
         return new ArrayList<>(List.of(
                 new Post("인기 1"),
                 new Post("인기 2"),
@@ -92,10 +94,15 @@ class PostService {
     PostRepository postRepository = new PostRepository();
     private List<Post> cashedPopularPosts;
 
+
+    //List.sort()는 리스트 그 자체를 변경함
+    // stream()보다 메모리 효율이 좋음(새 리스트를 생성하지 않기에)
+    // : 캐시나 반복 사용 데이터에 적합함.
+
     public List<Post> getPopularPosts() {
         if (cashedPopularPosts == null) {
             //DB에서 인기게시글 조회
-            cashedPopularPosts = postRepository.cashedPopularPosts();
+            cashedPopularPosts = postRepository.findTop5MyOrderByViewsDesc();
         }
         //한 번 불러온 후 매번 DB 조회를 하지 않고 재사용
         return cashedPopularPosts;
@@ -103,15 +110,64 @@ class PostService {
 
     public void refreshPopularPostsCache() {
         //필요할 때 갱신
-        cashedPopularPosts = postRepository.cashedPopularPosts();
+        cashedPopularPosts = postRepository.findTop5MyOrderByViewsDesc();
     }
 }
 
+/**
+ * 3. Comparator 추출로 정렬 기준 재사용
+ *    목적: 정렬 기준이 자주 반복되거나 복잡한 로직일 때 재 사용성을 높이기 위해서
+ *
+ */
 
+@Getter
+@AllArgsConstructor
+@ToString
+class User{
+    private String name;
+    private int age;
+}
+
+//정렬 기준을 별도의 util 클래스로 분리
+//사용자 데이터 정렬 로직을 정리
+class UserComparators {
+    // 사용자 이름은 오름차순 정렬
+    public static final Comparator<User> BY_NAME = Comparator.comparing(User::getName);
+
+    // 사용자 나이는 내림차순 정렬(연장자 순서)
+    public static final Comparator<User> BY_AGE_DESC = Comparator.comparingInt(User::getAge).reversed();
+
+    // 정렬 로직을 메서드에서 분리하여 한곳에서 관리가 가능함
+    // : 테스트 용이성, 유지보수성이 향상됨
+    // - 실무 프로젝트에서는 ComparatorUtils, SortConstants 클래스에 모아서 정의함
+}
 
 
 public class B_Sort {
     public static void main(String[] args) {
+        List<User> userList = new ArrayList<>(List.of(
+           new User("이승아", 25),
+           new User("이도경", 20),
+           new User("김명진", 30),
+           new User("조승범", 23),
+           new User("윤대휘", 27)
+        ));
 
+        userList.sort(UserComparators.BY_AGE_DESC);
+        System.out.println(userList);
+
+        userList.sort(UserComparators.BY_NAME);
+        System.out.println(userList);
     }
 }
+
+
+/*
+  SQL 정렬 VS Java 정렬의 역할 분리
+  >> 성능 최적화 및 역할 구분
+
+  1) 데이터가 많고 단순한 정렬: SQL - ORDER BY 사용
+  2) 복잡한 정렬 기준 : Java - Comparator, Stream API 사용
+  3) 정렬 조건이 요청마다 달라짐 : Java 에서 처리
+  4) 정렬된 순서를 DB 에서 보장: SQL 처리
+ */
