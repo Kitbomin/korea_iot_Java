@@ -63,6 +63,23 @@ public class A_Sort {
         Collections.sort(list);
         list.sort(null);
         //위으 ㅣ두 개 모두 값이 같음
+
+        /*
+        *  list.sort()에 왜 null이 들어가있을까?
+         => List 컬렉션 프레임워크의 sort는 Comparator를 전달받는다.
+            >> 비교 기준을 정해주는 클래스
+         1) null : 기본정렬(오름차순) - String, Integer, Double 등의 단일 데이터가 Comparable을 이미 구현하고 있음
+         2) Comparator : 지정한 Comparator 기준으로 정렬하는 경우
+                      ex) 데이터의 변환(문자열 -> 길이)
+                      ex) list.sort(Comparator.reverseOrder())
+        * */
+
+        List<String> listA = new ArrayList<>(List.of("aaa", "aaaaa", "aa", "a", "aaaaaa"));
+        listA.sort(Comparator.comparingInt(String::length));
+        System.out.println(listA);
+
+
+
         System.out.println(list);
 
         // == 내림차순 ==
