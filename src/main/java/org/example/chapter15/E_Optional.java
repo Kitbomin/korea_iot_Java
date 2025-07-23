@@ -92,7 +92,9 @@ public class E_Optional {
         //+) Supplier<T>: 공급하다 -> T 타입의 값을 생성해 반환
 
         try {
-            optional3.orElseThrow(() -> new Error("값이 없을 경우 예오 ㅣ발생")); //Exception in thread "main" java.lang.Error: 값이 없을 경우 예오 ㅣ발생
+            // +) Throwable -> Exception(예외), Error(오류)
+            optional3.orElseThrow(() -> new Error("값이 없을 경우 예오 ㅣ발생")); //Exception in thread "main" java.lang.Error: 값이 없을 경우 예오 ㅣ발생 //런타임
+//            optional3.orElseThrow(() -> new Exception("예외 발생")); //컴파일
         }catch (Error e) {
             System.out.println("예외가 발생해버렸어요: " + e.getMessage());
         }
