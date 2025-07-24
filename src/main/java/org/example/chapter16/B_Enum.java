@@ -23,6 +23,7 @@ enum Fruits {
     APPLE, BANANA, ORANGE
 }
 
+
 @ToString
 class FruitsClass {
     String name; //과일의 이름
@@ -31,6 +32,22 @@ class FruitsClass {
         this.name = name;
     }
 }
+
+enum CoffeeSize {
+    SMALL(100), MEDIUM(200), LARGE(300); //각 필드는 CoffeeSize(Enum)과 대등함
+    // >> 이 위의 값들은 곧 생성자 호출이라 볼 수도 있음
+
+    private final int ml;
+
+    CoffeeSize(int ml) {
+        this.ml = ml;
+    }
+
+    public int getMl() {
+        return ml;
+    }
+}
+
 
 
 
@@ -64,10 +81,23 @@ public class B_Enum {
         System.out.println(appleName);
 
 
-        // 3) valueOf(String name): 문자열로 Enum 상수를 반환해줌
+        // 3) valueOf(String name): 문자열을 Enum 상수로 반환해줌
         // : 잘못된 문자열 전달 시 IllegalArgumentException 발생
         Fruits orange1 = Fruits.valueOf("ORANGE");
 //        Fruits orange2 = Fruits.valueOf("Orange"); IllegalArgumentException: No enum constant org.example.chapter16.Fruits.Orange => 대소문자까지 확인함
+
+
+        // 4) ordinal(): ENUM 상수의 순서를 반환 (0부터 시작함 -> 인덱스 번호처럼)
+        System.out.println(orange1.ordinal());
+
+
+        // == CoffeeSize == //
+        CoffeeSize size = CoffeeSize.MEDIUM;
+        System.out.println(size + "'s ml: " + size.getMl() + "ml");
+
+        CoffeeSize anotherSize = CoffeeSize.LARGE;
+        System.out.println(anotherSize + "'s ml: " + anotherSize.getMl() + "ml");
+
 
     }
 }
