@@ -14,8 +14,11 @@ public interface BookManager<T> {
 
     //단건 조회
     T findBookById(String id); //id로 단건조회
+
     List<T> listAllBooks(); //전체조회
+
     void updateBook(String id, T updatedBook);
+
     void deleteBook(String id);
 
 }
