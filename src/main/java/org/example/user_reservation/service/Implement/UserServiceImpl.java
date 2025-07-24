@@ -5,7 +5,7 @@ import org.example.user_reservation.dto.request.UserLoginRequestDto;
 import org.example.user_reservation.dto.request.UserRegisterRequestDto;
 import org.example.user_reservation.entity.User;
 import org.example.user_reservation.repository.UserRepository;
-import org.example.user_reservation.service.UserService;
+import org.example.user_reservation.service.serviceInterface.UserService;
 
 import java.util.Optional;
 
@@ -98,6 +98,11 @@ public class UserServiceImpl implements UserService {
 
 
         return false;
+    }
+
+    @Override
+    public Optional<User> findUserById(String userId) {
+        return userRepository.findByUserId(userId);
     }
 
 }

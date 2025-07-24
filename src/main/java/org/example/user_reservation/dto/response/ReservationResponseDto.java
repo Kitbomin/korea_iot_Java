@@ -2,11 +2,12 @@ package org.example.user_reservation.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.ToString;
 
 import java.util.Date;
 
 @AllArgsConstructor
-@Getter
+@Getter @ToString
 public class ReservationResponseDto {
     private Long reservationId;
     private String userId;

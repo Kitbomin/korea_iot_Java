@@ -1,4 +1,4 @@
-package org.example.user_reservation.service;
+package org.example.user_reservation.service.serviceInterface;
 
 import org.example.user_reservation.dto.response.ReservationResponseDto;
 
