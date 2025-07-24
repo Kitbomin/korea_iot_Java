@@ -8,7 +8,7 @@ import java.util.Date;
 @AllArgsConstructor
 @Getter
 public class ReservationResponseDto {
-    private String reservationId;
+    private Long reservationId;
     private String userId;
     private Date reservationTime;
     private String activeMessage;
