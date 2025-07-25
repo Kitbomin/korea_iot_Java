@@ -13,9 +13,7 @@ public class PatientRepository {
     // 싱글톤 구현
     private static final PatientRepository instance = new PatientRepository();
     private PatientRepository() {}
-    public static PatientRepository getInstance() {
-        return instance;
-    }
+    public static PatientRepository getInstance() {return instance;}
 
     public void save(Patient patient) {
         // 생성 (Create), 수정(Update) 가 같은 save를 사용

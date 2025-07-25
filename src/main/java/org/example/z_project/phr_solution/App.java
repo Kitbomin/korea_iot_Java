@@ -46,7 +46,9 @@ public class App {
     private static boolean processChoice(int choice) {
         //사용자의 입력을 처리하는 역할
         switch (choice) {
+
             //환자 관련 기능
+            // 등록
             case 1: {
                 // 드옭
                 PatientCreateRequestDto requestDto = InputHandler.createPatientRequest();
@@ -60,7 +62,7 @@ public class App {
 
                 break;
             }
-
+            // 전체조회
             case 2: {
                 // 전체 조회
                 List<PatientListResponseDto> patients = patientController.getAllPatients();
@@ -72,7 +74,7 @@ public class App {
 
                 break;
             }
-
+            // 단건조회
             case 3: {
                 // 단건 조회
                 Long id = InputHandler.getIdInput();
@@ -87,7 +89,7 @@ public class App {
 
                 break;
             }
-
+            // 수정
             case 4: {
                 // 수정
                 Long id = InputHandler.getIdInput();
@@ -102,7 +104,7 @@ public class App {
 
                 break;
             }
-
+            // 삭제
             case 5: {
                 // 삭제
                 Long id = InputHandler.getIdInput();
