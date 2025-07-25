@@ -23,12 +23,116 @@ package org.example.z_project.phr_solution;
  *
  *  4. 실행 및 관리
  *   - App.java: 프로그램 실행 진입점, 사용자와의 상호작용을 관리하고 전체 흐름을 제어하는 역할
+ *              >> App.java가 사용자 입력처리, 메뉴 출력, 흐름 제어 모두를 담당 -> SOLID의 SRP(단일 책임 원칙)에 위배됨
+ *              >> handler + App.java로 구분
  *
  */
 
 
+import org.example.z_project.phr_solution.controller.PatientController;
+import org.example.z_project.phr_solution.dto.patient.request.PatientCreateRequestDto;
+import org.example.z_project.phr_solution.dto.patient.request.PatientUpdateRequestDto;
+import org.example.z_project.phr_solution.dto.patient.response.PatientDetailResponseDto;
+import org.example.z_project.phr_solution.dto.patient.response.PatientListResponseDto;
+import org.example.z_project.phr_solution.handler.InputHandler;
+import org.example.z_project.phr_solution.handler.MenuPrinter;
+
+import java.util.List;
+
 public class App {
+    private static final PatientController patientController = new PatientController();
+
+
+    private static boolean processChoice(int choice) {
+        //사용자의 입력을 처리하는 역할
+        switch (choice) {
+            //환자 관련 기능
+            case 1: {
+                // 드옭
+                PatientCreateRequestDto requestDto = InputHandler.createPatientRequest();
+                patientController.registerPatient(requestDto);
+
+                break;
+            }
+
+            case 2: {
+                // 전체 조회
+                List<PatientListResponseDto> patients = patientController.getAllPatients();
+                if (patients.isEmpty()) {
+                    System.out.println("환자 정보가 없어요");
+                }else {
+                    patients.forEach(System.out::println);
+                }
+
+                break;
+            }
+
+            case 3: {
+                // 단건 조회
+                Long id = InputHandler.getIdInput();
+                PatientDetailResponseDto patient = patientController.getPatientById(id);
+
+                if (patient == null) { // 맨처음 담은 null 값 검증
+                    System.out.println("해당하는 ID의 환자가 없어요");
+                }else System.out.println(patient);
+
+                break;
+            }
+
+            case 4: {
+                // 수정
+                Long id = InputHandler.getIdInput();
+                PatientUpdateRequestDto requestDto = InputHandler.updatePatientRequest();
+                patientController.updatePatient(id, requestDto);
+
+                break;
+            }
+
+            case 5: {
+                // 삭제
+                Long id = InputHandler.getIdInput();
+                patientController.deletePatient(id);
+                break;
+
+            }
+
+            // 건강 기록 관련 기능
+
+            case 10: {
+                System.out.println("프로그램을 종료합니다. 이용해주셔서 감사합니다.");
+                return false;
+            }
+
+            default: {
+                System.out.println("잘못된 입력입니다. 유효한 메뉴를 입력해주세요.");
+                break;
+            }
+
+
+
+        }
+        return true;
+
+    }
+
+
     public static void main(String[] args) {
+        try {
+            while (true) {
+                MenuPrinter.displayMenu();
+                int choice = InputHandler.getChoice();
+                if (!processChoice(choice)) break; // processChoice의 반환값이 false면 로직 종료
+
+            }
+
+
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        } finally {
+            //예외 발생 상관없이 반드시 실행 보장
+            InputHandler.closeScanner();
+
+        }
 
     }
 }

@@ -78,7 +78,7 @@ public class PatientServiceImpl implements PatientService {
 
             data = new PatientDetailResponseDto(patient.getId(), patient.getName(), patient.getAge());
 
-        }catch (Exception e){
+        } catch (Exception e){
             System.out.println(e.getMessage());
         }
 
