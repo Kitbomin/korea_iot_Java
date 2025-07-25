@@ -26,14 +26,32 @@ public class InputHandler {
 
     // 내용값 입력
     public static String getInput(String prompt) {
-        System.out.print(prompt + ": ");
-        return sc.nextLine().trim(); //문자열 양쪽 공백 제거
+
+        while (true) {
+            System.out.print(prompt + ": ");
+            String input = sc.nextLine().trim();//문자열 양쪽 공백 제거
+
+            if (!input.isEmpty()) {
+                return input;
+            }
+
+            System.out.println("입력값을 비워둘 수 없습니다. 다시 입력해주세요.");
+
+        }
     }
 
     // Long 타입 -> id 고유값 반환
     public static Long getIdInput() {
-        String input = getInput("ID를 입력하세요");
-        return Long.parseLong(input);
+        while (true) {
+            String input = getInput("ID를 입력하세요");
+            try {
+
+                return Long.parseLong(input);
+            }catch (NumberFormatException e) {
+                System.out.println("숫자만 입력 가능: " + e.getMessage());
+            }
+        }
+
     }
 
     // 요청

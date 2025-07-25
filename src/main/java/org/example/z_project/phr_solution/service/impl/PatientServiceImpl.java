@@ -76,7 +76,9 @@ public class PatientServiceImpl implements PatientService {
             Patient patient = patientRepository.findById(id)
                     .orElseThrow(() -> new IllegalArgumentException("해당 ID를 가진 환자를 조회할 수 없습니다: " + id));
 
-            data = new PatientDetailResponseDto(patient.getId(), patient.getName(), patient.getAge());
+            data = new PatientDetailResponseDto(
+                    patient.getId(),
+                    patient.getName(), patient.getAge());
 
         } catch (Exception e){
             System.out.println(e.getMessage());

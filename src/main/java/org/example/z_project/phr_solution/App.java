@@ -50,6 +50,12 @@ public class App {
             case 1: {
                 // 드옭
                 PatientCreateRequestDto requestDto = InputHandler.createPatientRequest();
+
+                if (requestDto == null) {
+                    System.out.println("필수 입력값을 유효하게 넣어야합니다.");
+                    break;
+                }
+
                 patientController.registerPatient(requestDto);
 
                 break;
@@ -72,8 +78,11 @@ public class App {
                 Long id = InputHandler.getIdInput();
                 PatientDetailResponseDto patient = patientController.getPatientById(id);
 
+
+
                 if (patient == null) { // 맨처음 담은 null 값 검증
                     System.out.println("해당하는 ID의 환자가 없어요");
+
                 }else System.out.println(patient);
 
                 break;
@@ -83,6 +92,12 @@ public class App {
                 // 수정
                 Long id = InputHandler.getIdInput();
                 PatientUpdateRequestDto requestDto = InputHandler.updatePatientRequest();
+
+                if (requestDto == null) {
+                    System.out.println("필수 입력값을 유효하게 넣어야합니다.");
+                    break;
+                }
+
                 patientController.updatePatient(id, requestDto);
 
                 break;
