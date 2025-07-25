@@ -7,6 +7,7 @@ import org.example.z_project.phr_solution.entity.Patient;
 import org.example.z_project.phr_solution.repository.HealthRecordRepository;
 import org.example.z_project.phr_solution.repository.PatientRepository;
 import org.example.z_project.phr_solution.service.HealthRecordService;
+import org.example.z_project.phr_solution.util.DateValidator;
 
 import java.util.Date;
 import java.util.List;
@@ -45,6 +46,9 @@ public class HealthRecordServiceImpl implements HealthRecordService {
     public void createRecord(RecordCreateRequestDto dto) {
         try {
             validatePatientId(dto.getPatientId());
+
+            //날짜 형식 맞추는 검증 구문
+            DateValidator.validateOrThrow(dto.getDateOfVisit());
 
             HealthRecord record = new HealthRecord(generatedRecordId(), dto.getPatientId(), dto.getDateOfVisit(),
                                                     dto.getDiagnosis(), dto.getTreatment());

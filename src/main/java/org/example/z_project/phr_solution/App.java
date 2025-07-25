@@ -29,18 +29,23 @@ package org.example.z_project.phr_solution;
  */
 
 
+import org.example.z_project.phr_solution.controller.HealthRecordController;
 import org.example.z_project.phr_solution.controller.PatientController;
+import org.example.z_project.phr_solution.dto.health_record.request.RecordCreateRequestDto;
+import org.example.z_project.phr_solution.dto.health_record.response.RecordListResponseDto;
 import org.example.z_project.phr_solution.dto.patient.request.PatientCreateRequestDto;
 import org.example.z_project.phr_solution.dto.patient.request.PatientUpdateRequestDto;
 import org.example.z_project.phr_solution.dto.patient.response.PatientDetailResponseDto;
 import org.example.z_project.phr_solution.dto.patient.response.PatientListResponseDto;
 import org.example.z_project.phr_solution.handler.InputHandler;
 import org.example.z_project.phr_solution.handler.MenuPrinter;
+import org.example.z_project.phr_solution.util.DateValidator;
 
 import java.util.List;
 
 public class App {
     private static final PatientController patientController = new PatientController();
+    private static final HealthRecordController healthRecordController = new HealthRecordController();
 
 
     private static boolean processChoice(int choice) {
@@ -48,6 +53,7 @@ public class App {
         switch (choice) {
 
             //환자 관련 기능
+
             // 등록
             case 1: {
                 // 드옭
@@ -62,6 +68,7 @@ public class App {
 
                 break;
             }
+
             // 전체조회
             case 2: {
                 // 전체 조회
@@ -74,13 +81,12 @@ public class App {
 
                 break;
             }
+
             // 단건조회
             case 3: {
                 // 단건 조회
                 Long id = InputHandler.getIdInput();
                 PatientDetailResponseDto patient = patientController.getPatientById(id);
-
-
 
                 if (patient == null) { // 맨처음 담은 null 값 검증
                     System.out.println("해당하는 ID의 환자가 없어요");
@@ -89,6 +95,7 @@ public class App {
 
                 break;
             }
+
             // 수정
             case 4: {
                 // 수정
@@ -104,6 +111,7 @@ public class App {
 
                 break;
             }
+
             // 삭제
             case 5: {
                 // 삭제
@@ -115,6 +123,62 @@ public class App {
 
             // 건강 기록 관련 기능
 
+            // 생성
+            case 6: {
+                RecordCreateRequestDto requestDto = InputHandler.createRecordRequest();
+
+
+                if (requestDto == null) {
+                    System.out.println("필수 입력값을 유효하게 넣어야합니다.");
+                    break;
+                }
+
+
+                healthRecordController.createRecord(requestDto);
+                break;
+
+            }
+
+            // 조회 전체
+            case 7: {
+                List<RecordListResponseDto> records = healthRecordController.getAllRecords();
+
+                if (records.isEmpty()) {
+                    System.out.println("건강 기록이 없습니다.");
+                }else {
+                    records.forEach(System.out::println);
+                }
+
+                break;
+
+            }
+
+            // 조회 검색
+            case 8: {
+                String diagnosisFilter = InputHandler.getInput("필터 조건(진단명)");
+
+                List<RecordListResponseDto> filteredRecords
+                        = healthRecordController.filterRecordsByDiagnosis(diagnosisFilter);
+
+                if (filteredRecords.isEmpty()) {
+                    System.out.println("검색 결과를 못찾겠어요");
+                }else {
+                    filteredRecords.forEach(System.out::println);
+                }
+
+
+                break;
+            }
+
+            // 삭제
+            case 9: {
+                long id = InputHandler.getIdInput();
+                healthRecordController.deleteRecord(id);
+
+                break;
+            }
+
+
             case 10: {
                 System.out.println("프로그램을 종료합니다. 이용해주셔서 감사합니다.");
                 return false;
@@ -124,8 +188,6 @@ public class App {
                 System.out.println("잘못된 입력입니다. 유효한 메뉴를 입력해주세요.");
                 break;
             }
-
-
 
         }
         return true;

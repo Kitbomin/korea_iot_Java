@@ -2,6 +2,7 @@ package org.example.z_project.phr_solution.handler;
 
 // 입력값에 대한 처리를 모아놓은 핸들러
 
+import org.example.z_project.phr_solution.dto.health_record.request.RecordCreateRequestDto;
 import org.example.z_project.phr_solution.dto.patient.request.PatientCreateRequestDto;
 import org.example.z_project.phr_solution.dto.patient.request.PatientUpdateRequestDto;
 
@@ -98,6 +99,31 @@ public class InputHandler {
 
         return dto;
     }
+
+    // 건강 기록 정보
+    // 생성
+    public static RecordCreateRequestDto createRecordRequest() {
+        RecordCreateRequestDto dto = null;
+
+        try {
+            long patientId = getIdInput();
+            String dateOfVisit = getInput("방문 날짜를 입력하세요 예) 2025-07-25");
+            //? 문자열의 포맷이 DateTime과 일치하지 않다면?
+
+            String diagnosis = getInput("진단명을 입력하세요");
+
+            String treatment = getInput("처방 내용을 입력하세요");
+
+            dto = new RecordCreateRequestDto(patientId, dateOfVisit, diagnosis, treatment);
+
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+
+        return dto;
+    }
+
+
 
 
     public static void closeScanner() {
